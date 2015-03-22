@@ -1,4 +1,4 @@
-package edu.oakland.helper;
+package edu.oakland.production;
 
 /*
  * Student framework class representing a single student.  Should be accesible throughout the project.

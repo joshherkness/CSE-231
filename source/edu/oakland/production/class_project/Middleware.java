@@ -4,7 +4,7 @@ package edu.oakland.production;
 import java.util.*;
 
 //Import package containing Student.java
-import edu.oakland.helper.*;
+import edu.oakland.production.*;
 
 /*
  * Middleware class for CSE231 class project.  Requires import of User class.
