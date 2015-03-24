@@ -1,10 +1,10 @@
-package edu.oakland.production;
+package edu.oakland.production.ClassProject.Middleware;
 
 /*
  * Student framework class representing a single student.  Should be accesible throughout the project.
  * 
  * @author Joshua Herkness, Trevor Luebbert Middleware
- * @version version 1.1
+ * @version version 1.2
  * @since version 1.0
  */
 public class Student{

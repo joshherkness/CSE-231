@@ -1,16 +1,16 @@
-package edu.oakland.production;
+package edu.oakland.production.ClassProject.Middleware;
 
 //Import java util framework
 import java.util.*;
 
 //Import package containing Student.java
-import edu.oakland.production.*;
+import edu.oakland.production.ClassProject.Middleware.*;
 
 /*
  * Middleware class for CSE231 class project.  Requires import of User class.
  * 
  * @author Joshua Herkness, Trevor Luebbert Middleware
- * @version version 1.1
+ * @version version 1.2
  * @since version 1.0
  */
 public class Middleware {
