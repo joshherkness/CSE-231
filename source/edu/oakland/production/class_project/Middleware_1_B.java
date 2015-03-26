@@ -3,50 +3,61 @@ package edu.oakland.production.ClassProject.Middleware;
 //Import java util framework
 import java.util.*;
 
+//Import Middleware stuff.
+import edu.oakland.production.ClassProject.Middleware.*;
+
 //Import BinaryTree.java
-import edu.oakland.production.ClassProject.Middlewar.*;
+import edu.oakland.production.ClassProject.Database.*;
 
 
 /*
  * Middleware Part 1B.  Purpose is to experiment with BinaryTrees'.
  * 
  * @author Joshua Herkness, Trevor Luebbert Middleware
- * @version version 1.0
+ * @version version 1.1
  * @since version 1.0
  */
 public class Middleware {
 	
 	/// Minimum possible key value, used with generating a random key.
-	int minimumKeyValue = 400000;
+	private int minimumKeyValue = 400000;
 	/// Maximum possible key value, used with generating a random key.
-	int maximumKeyValue = 800000;
+	private int maximumKeyValue = 800000;
 	
 	/// Minimum possible name value, used with generating a random name.
-	int minimumNameValue = 200000;
+	private int minimumNameValue = 200000;
 	/// Maximum possible key value, used with generating a random name.
-	int maximumNameValue = 600000;
+	private int maximumNameValue = 600000;
+	
+	/// Temporary storage for number of nodes searched.
+	private int nodesSearched;
+	
+	Database database;
 	
 	/*
 	 * Default constructor for the Middleware Class.
 	 * 
+	 * @param database Database object.
+	 * 
 	 * @returns Middleware
 	 */
-	public Middleware(){
-		//Any cunstruction goes here.
+	public Middleware(Database database){
+		
+		//Link the database 
+		this.database = database
 	}
 	
 	/*
-	 * Creates a BinaryTree object with a given size, populating the key and 
-	 * name of each node with a non-duplicate random number.
+	 * Populates a BinaryTree object with a given size, with a key and 
+	 * name for each node with a non-duplicate random number.
 	 * 
+	 * @param binaryTree BinaryTree object, located within the database.
 	 * @param size Integer value corresponding to the size of the binary tree.
 	 * 
-	 * @returns BinaryTree
 	 */
-	public BinaryTree createBinaryTree(int size){
+	public void populateBinaryTree(BinaryTree binaryTree, int size){
 		
-		// Create in instance of a BinaryTree.
-		BinaryTree binaryTree = new BinaryTree();
+		binaryTree = new BinaryTree();
 		
 		// Create a non-duplicate random number list for keys.
 		List<int> nonDuplicateRandomNumberKeys = new List<int>();
@@ -68,8 +79,92 @@ public class Middleware {
 			binaryTree.addNode(key, name);	
 			
 		}
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param name String value corresponding with desired search value.
+	 * 
+	 * @returns int Integer type corresponding to the number of nodes searched through.
+	 */
+	public int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name){
 		
-		return binaryTree;
+		nodesSeacrched++;
+		
+		if (focusNode == null) {
+			return null;
+		} else if (focusNode.getName().equals(name)){	
+			
+			// Temp storage for nodes searched, created for reset.
+			int tempNodesSearched = nodesSearched;
+			nodesSearched = 0;
+			
+			return tempNodesSearched;
+		}
+		
+		if (focusNode.leftNode != null){
+			preorderSearchNodeCount(focusNode.leftNode, name);
+		}
+		
+		if (focusNode.rightNode != null){
+			preorderSearchNodeCount(focusNode.rightNode, name);
+		}
+			
+		return 0;
+			
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param name String value corresponding with desired search value.
+	 * 
+	 * @returns int Integer type corresponding to the number of nodes searched through.
+	 */
+	public int calculateInOrderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name){
+		//Calculattions here.
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param name String value corresponding with desired search value.
+	 * 
+	 * @returns double Double type corresponding to time taken to search the binaryTree.
+	 */
+	public double calculatePreorderSearchDuration(BinaryTree binaryTree, Node focusNode, String name){
+		//Calculattions here.
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param name String value corresponding with desired search value.
+	 * 
+	 * @returns double Double type corresponding to time taken to search the binaryTree.
+	 */
+	public double calculateInOrderSearchDuration(BinaryTree binaryTree, Node focusNode, String name){
+		//Calculattions here.
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * 
+	 * @returns String String corresponding to the big O relationship for the binary tree.
+	 */
+	public String calculateBigORelationship(BinaryTree binaryTree){
+		
 	}
 	
 	/*
@@ -107,5 +202,23 @@ public class Middleware {
 		// Return a immutable List object, created from the ArrayList, trimming off unnecessary values.
 		return nonDuplicateRandomNumbers.subList(0, size - 1);
 		
+	}
+	
+	/*
+	 * Retrieves the database object.
+	 * 
+	 * @returns database Database object.
+	 */
+	public Database getDatabase(){
+		return this.database;
+	}
+	
+	/*
+	 * Modifies the database object stored in Middleware.
+	 * 
+	 * @param database Database object corresponding to the new database.
+	 */
+	public void setDatabase(Database database){
+		this.database = database;
 	}
 }

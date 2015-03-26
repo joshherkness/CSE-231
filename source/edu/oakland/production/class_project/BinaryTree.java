@@ -14,6 +14,8 @@ public class BinaryTree {
 
 	/// Root node
 	Node root;
+	
+	private nodeNameFound;
 
 	/*
 	 * Adds a node to the binary tree, given a int key, and string name pair.
@@ -124,6 +126,82 @@ public class BinaryTree {
 		}
 
 	}
+	
+	/*
+	 * Description
+	 * 
+	 * @param name String value name corresponding to a specific node name.
+	 * 
+	 * @returns nodesSearched Integer value corresponding to the amount of nodes search.
+	 */
+	public Node preorderSearchNode(Node focusNode, String name){
+		
+		Node focusNode = focusNode;
+		
+		Node result = null;
+		
+		if (focusNode == null) {
+			return null;
+		} else if (focusNode.getName().equals(name)){
+			return focusNode;
+		
+		if (focusNode.leftNode != null){
+			result = preorderSearchNodeCount(focusNode.leftNode, name);
+		}
+		
+		if (result == null){
+			result = preorderSearchNodeCount(focusNode.rightNode, name);
+		}
+			
+		return result;
+	}
+	
+	/*
+	 * Description
+	 * 
+	 * @param name String value name corresponding to a specific node name.
+	 * 
+	 * @returns nodesSearched Integer value corresponding to the amount of nodes search.
+	 */
+	public int preorderSearchNodeCount(Node focusNode, String name){
+		
+		Node focusNode = focusNode;
+		
+		int nodeCount = 0;
+		
+		/*
+		if (nodeNameFound){
+			return
+		}
+		
+		if (focusNode = null) {
+			return 0;
+		} else if (focusNode.getName().equals(name)){
+			return 0;
+		
+		if (focusNode.leftNode != null){
+			nodeCount += preorderSearchNodeCount(focusNode.leftNode, name);
+		}
+			
+		if (nodeNameFound){
+			nodeCount += preorderSearchNodeCount(focusNode.rightNode, name);
+		}
+		
+		*/
+		while (!focusNode.getName().equals(name)){
+			
+			if (focusNode != null){
+				
+				nodeCount += preorderSearchNodeCount(focusNode.leftNode, name);
+				nodeCount += preorderSearchNodeCount(focusNode.rightNode, name);
+				
+			}
+		}
+		
+		nodeFound = true;
+		
+	}
+		
 
 	public Node findNode(int key) {
 

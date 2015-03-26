@@ -51,5 +51,15 @@ public class Node {
 		 */
 
 	}
+	
+	/*
+	 * Retrieves the name of the node.
+	 * 
+	 * @returns name String value corresponding to the name of the node.
+	 */
+	public String getName(){
+		
+		return name;
+	}
 
 }
