@@ -29,9 +29,6 @@ public class Middleware {
 	/// Maximum possible key value, used with generating a random name.
 	private int maximumNameValue = 600000;
 	
-	/// Temporary storage for number of nodes searched.
-	private int nodesSearched;
-	
 	Database database;
 	
 	/*
@@ -90,30 +87,56 @@ public class Middleware {
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
-	public int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name){
+	public int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, int key){
 		
-		nodesSeacrched++;
+		int nodesSearched = calculatePreorderSearchNodeCount(binaryTree, focusNode, key, true);
 		
-		if (focusNode == null) {
-			return null;
-		} else if (focusNode.getName().equals(name)){	
+		return nodesSearched;
+		
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param name String value corresponding with desired search value.
+	 * @param continueSearch Boolean value corresponding to whether the node has been located.
+	 * 
+	 * @returns int Integer type corresponding to the number of nodes searched through.
+	 */
+	private int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, int key, boolean continueSearching){
+		
+		// Begin each recursion with zero nodes searched.
+		int nodesSearched = 0;
+		
+		// Ignore the recursion loop if the node is already found, or if the node is non existant.
+		if (!continueSearching){
+			return 0;
+		} else if (focusNode == null){
+			return 0;
+		} else {
+			// Count the node.
+			nodesSearched++;
+		}
+		
+		// If the focus node has the desired key, increament the amount of nodesSearched, and 
+		if (focusNode.getKey() == key){
 			
-			// Temp storage for nodes searched, created for reset.
-			int tempNodesSearched = nodesSearched;
-			nodesSearched = 0;
+			continueSearching = false;
+			return nodesSearched;
 			
-			return tempNodesSearched;
 		}
 		
 		if (focusNode.leftNode != null){
-			preorderSearchNodeCount(focusNode.leftNode, name);
+			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.leftNode, key, continueSearching);
 		}
 		
 		if (focusNode.rightNode != null){
-			preorderSearchNodeCount(focusNode.rightNode, name);
+			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.righNode, key, continueSearching);
 		}
 			
-		return 0;
+		return nodesSearched;
 			
 	}
 	
