@@ -83,7 +83,7 @@ public class Middleware {
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
-	 * @param name String value corresponding with desired search value.
+	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
@@ -100,7 +100,7 @@ public class Middleware {
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
-	 * @param name String value corresponding with desired search value.
+	 * @param key Integer value corresponding with desired search value.
 	 * @param continueSearch Boolean value corresponding to whether the node has been located.
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
@@ -145,12 +145,15 @@ public class Middleware {
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
-	 * @param name String value corresponding with desired search value.
+	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
 	public int calculateInOrderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name){
-		//Calculattions here.
+		
+		int nodesSearched = calculateInOrderSearchNodeCount(binaryTree, focusNode, key, true);
+		
+		return nodesSearched;
 	}
 	
 	/*
@@ -158,12 +161,61 @@ public class Middleware {
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
-	 * @param name String value corresponding with desired search value.
+	 * @param key Integer value corresponding with desired search value.
+	 * @param continueSearch Boolean value corresponding to whether the node has been located.
+	 * 
+	 * @returns int Integer type corresponding to the number of nodes searched through.
+	 */
+	public int calculateInOrderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name, boolean continueSearching){
+		
+		// Begin each recursion with zero nodes searched.
+		int nodesSearched = 0;
+		
+		// Ignore the recursion loop if the node is already found, or if the node is non existant.
+		if (!continueSearching){
+			return 0;
+		} else if (focusNode == null){
+			return 0;
+		} else {
+			// Count the node.
+			nodesSearched++;
+		}
+		
+		if (focusNode.leftNode != null){
+			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.leftNode, key, continueSearching);
+		}
+		
+		// If the focus node has the desired key, increament the amount of nodesSearched, and 
+		if (focusNode.getKey() == key){
+			
+			continueSearching = false;
+			return nodesSearched;
+			
+		}
+		
+		if (focusNode.rightNode != null){
+			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.righNode, key, continueSearching);
+		}
+			
+		return nodesSearched;
+	}
+	
+	/*
+	 * Description.  Not working just yet.
+	 * 
+	 * @param binaryTree BinaryTree object.
+	 * @param focusNode Start or begining node of the binary tree.
+	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @returns double Double type corresponding to time taken to search the binaryTree.
 	 */
-	public double calculatePreorderSearchDuration(BinaryTree binaryTree, Node focusNode, String name){
-		//Calculattions here.
+	public double calculatePreorderSearchDuration(BinaryTree binaryTree, Node focusNode, int key){
+		
+		double startTime = System.currentTimeMillis();
+		int n = calculatePreorderSearchNodeCount(binaryTree, focusNode, key);
+		double endTime = System.currentTimeMillis();
+		
+		return (endTime - startTime);
 	}
 	
 	/*
