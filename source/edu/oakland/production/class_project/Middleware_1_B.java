@@ -14,7 +14,7 @@ import edu.oakland.production.ClassProject.Database.*;
  * Middleware Part 1B.  Purpose is to experiment with BinaryTrees'.
  * 
  * @author Joshua Herkness, Trevor Luebbert Middleware
- * @version version 1.1
+ * @version version 2.0
  * @since version 1.0
  */
 public class Middleware {
