@@ -45,6 +45,20 @@ public class Middleware {
 	}
 	
 	/*
+	 * Creates a binary tree inside the database given a size, then populates it with non-duplicate random integer and string values.
+	 * 
+	 * @param size Integer value corresponding to the size of the binary tree.
+	 */
+	public void createBinaryTree(int size){
+		
+		database.createBinaryTree(size);
+		
+		BinaryTree binaryTree = database.getBinaryTree();
+		
+		populateBinaryTree(binaryTree, size);
+	}
+	
+	/*
 	 * Populates a BinaryTree object with a given size, with a key and 
 	 * name for each node with a non-duplicate random number.
 	 * 
@@ -52,7 +66,7 @@ public class Middleware {
 	 * @param size Integer value corresponding to the size of the binary tree.
 	 * 
 	 */
-	public void populateBinaryTree(BinaryTree binaryTree, int size){
+	private void populateBinaryTree(BinaryTree binaryTree, int size){
 		
 		binaryTree = new BinaryTree();
 		
@@ -79,7 +93,61 @@ public class Middleware {
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Searches for three integer key values, and provide a record of the amount of nodes searched through, durring a preorder search, for each key searched.
+	 * 
+	 * @param key1 Integer value corresponding to a key value.
+	 * @param key2 Integer value corresponding to a key value.
+	 * @param key3 Integer value corresponding to a key value.
+	 * 
+	 * @returns nodesSearched String value corresponding to the number of nodes searched respectively.
+	 */
+	public String calculatePreorderNodesSearched(int key1, int key2, int key3){
+		
+		String nodesSearched = "";
+		
+		BinaryTree binaryTree = this.database.getBinaryTree();
+		Node focusNode = binaryTree.getRootNode();
+		
+		nodesSearched += Integer.toString(calculatePreorderNodesSearched(binaryTree, focusNode, key1));
+		nodesSearched += " ";
+		
+		nodesSearched += Integer.toString(calculatePreorderNodesSearched(binaryTree, focusNode, key2));
+		nodesSearched += " ";
+		
+		nodesSearched += Integer.toString(calculatePreorderNodesSearched(binaryTree, focusNode, key3));
+		
+		return nodesSearched;
+	}
+	
+	/*
+	 * Searches for three integer key values, and provide a record of the amount of nodes searched through, durring a in order search, for each key searched.
+	 * 
+	 * @param key1 Integer value corresponding to a key value.
+	 * @param key2 Integer value corresponding to a key value.
+	 * @param key3 Integer value corresponding to a key value.
+	 * 
+	 * @returns nodesSearched String value corresponding to the number of nodes searched respectively.
+	 */
+	public String calculateInOrderNodesSearched(int key1, int key2, int key3){
+		
+		String nodesSearched = "";
+		
+		BinaryTree binaryTree = this.database.getBinaryTree();
+		Node focusNode = binaryTree.getRootNode();
+		
+		nodesSearched += Integer.toString(calculateInOrderNodesSearched(binaryTree, focusNode, key1));
+		nodesSearched += " ";
+		
+		nodesSearched += Integer.toString(calculateInOrderNodesSearched(binaryTree, focusNode, key2));
+		nodesSearched += " ";
+		
+		nodesSearched += Integer.toString(calculateInOrderNodesSearched(binaryTree, focusNode, key3));
+		
+		return nodesSearched;
+	}
+	
+	/*
+	 * Calculates the amount of nodes searched in a preorder search, for locating a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -87,16 +155,16 @@ public class Middleware {
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
-	public int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, int key){
+	private int calculatePreorderNodesSearched(BinaryTree binaryTree, Node focusNode, int key){
 		
-		int nodesSearched = calculatePreorderSearchNodeCount(binaryTree, focusNode, key, true);
+		int nodesSearched = calculatePreorderNodesSearched(binaryTree, focusNode, key, true);
 		
 		return nodesSearched;
 		
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Helper recursive method used to calculates the amount of nodes searched in a preorder search, for locating a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -105,7 +173,7 @@ public class Middleware {
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
-	private int calculatePreorderSearchNodeCount(BinaryTree binaryTree, Node focusNode, int key, boolean continueSearching){
+	private int calculatePreorderNodesSearched(BinaryTree binaryTree, Node focusNode, int key, boolean continueSearching){
 		
 		// Begin each recursion with zero nodes searched.
 		int nodesSearched = 0;
@@ -129,11 +197,11 @@ public class Middleware {
 		}
 		
 		if (focusNode.leftNode != null){
-			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.leftNode, key, continueSearching);
+			nodesSearched += calculatePreorderNodesSearched(binaryTree, focusNode.leftNode, key, continueSearching);
 		}
 		
 		if (focusNode.rightNode != null){
-			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.righNode, key, continueSearching);
+			nodesSearched += calculatePreorderNodesSearched(binaryTree, focusNode.righNode, key, continueSearching);
 		}
 			
 		return nodesSearched;
@@ -141,7 +209,7 @@ public class Middleware {
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Calculates the amount of nodes searched in an in order search, for locating a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -149,15 +217,15 @@ public class Middleware {
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
-	public int calculateInOrderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name){
+	private int calculateInOrderNodesSearched(BinaryTree binaryTree, Node focusNode, int key){
 		
-		int nodesSearched = calculateInOrderSearchNodeCount(binaryTree, focusNode, key, true);
+		int nodesSearched = calculateInOrderNodesSearched(binaryTree, focusNode, key, true);
 		
 		return nodesSearched;
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Helper recursive method used to calculates the amount of nodes searched in an in order search, for locating a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -166,7 +234,7 @@ public class Middleware {
 	 * 
 	 * @returns int Integer type corresponding to the number of nodes searched through.
 	 */
-	public int calculateInOrderSearchNodeCount(BinaryTree binaryTree, Node focusNode, String name, boolean continueSearching){
+	private int calculateInOrderNodesSearched(BinaryTree binaryTree, Node focusNode, int key, boolean continueSearching){
 		
 		// Begin each recursion with zero nodes searched.
 		int nodesSearched = 0;
@@ -182,7 +250,7 @@ public class Middleware {
 		}
 		
 		if (focusNode.leftNode != null){
-			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.leftNode, key, continueSearching);
+			nodesSearched += calculateInOrderNodesSearched(binaryTree, focusNode.leftNode, key, continueSearching);
 		}
 		
 		// If the focus node has the desired key, increament the amount of nodesSearched, and 
@@ -194,14 +262,68 @@ public class Middleware {
 		}
 		
 		if (focusNode.rightNode != null){
-			nodesSearched += calculatePreorderSearchNodeCount(binaryTree, focusNode.righNode, key, continueSearching);
+			nodesSearched += calculateInOrderNodesSearched(binaryTree, focusNode.righNode, key, continueSearching);
 		}
 			
 		return nodesSearched;
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Calculates the amount of time (in milliseconds) needed to conduct a preorder search on three given keys.
+	 * 
+	 * @param key1 Integer value corresponding to a key value.
+	 * @param key2 Integer value corresponding to a key value.
+	 * @param key3 Integer value corresponding to a key value.
+	 * 
+	 * @returns duration String value corresponding to the time elapsed durring the searches.
+	 */
+	public String calculatePreorderSearchDuration(int key1, int key2, int key3){
+		
+		String duration = "";
+		
+		BinaryTree binaryTree = this.database.getBinaryTree();
+		Node focusNode = binaryTree.getRootNode();
+		
+		duration += Double.toString(calculatePreorderSearchDuration(binaryTree, focusNode, key1));
+		duration += " ";
+		
+		duration += Double.toString(calculatePreorderSearchDuration(binaryTree, focusNode, key2));
+		duration += " ";
+		
+		duration += Double.toString(calculatePreorderSearchDuration(binaryTree, focusNode, key3));
+		
+		return duration;
+	}
+	
+	/*
+	 * Calculates the amount of time (in milliseconds) needed to conduct a preorder search on three given keys.
+	 * 
+	 * @param key1 Integer value corresponding to a key value.
+	 * @param key2 Integer value corresponding to a key value.
+	 * @param key3 Integer value corresponding to a key value.
+	 * 
+	 * @returns duration String value corresponding to the time elapsed durring the searches.
+	 */
+	public String calculateInOrderSearchDuration(int key1, int key2, int key3){
+		
+		String duration = "";
+		
+		BinaryTree binaryTree = this.database.getBinaryTree();
+		Node focusNode = binaryTree.getRootNode();
+		
+		duration += Double.toString(calculateInOrderSearchDuration(binaryTree, focusNode, key1));
+		duration += " ";
+		
+		duration += Double.toString(calculateInOrderSearchDuration(binaryTree, focusNode, key2));
+		duration += " ";
+		
+		duration += Double.toString(calculateInOrderSearchDuration(binaryTree, focusNode, key3));
+		
+		return duration;
+	}
+	
+	/*
+	 * Calculates the amount of time (in milliseconds) needed to conduct a preorder search on a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -209,26 +331,31 @@ public class Middleware {
 	 * 
 	 * @returns double Double type corresponding to time taken to search the binaryTree.
 	 */
-	public double calculatePreorderSearchDuration(BinaryTree binaryTree, Node focusNode, int key){
+	private double calculatePreorderSearchDuration(BinaryTree binaryTree, Node focusNode, int key){
 		
 		double startTime = System.currentTimeMillis();
-		int n = calculatePreorderSearchNodeCount(binaryTree, focusNode, key);
+		int temporary = calculatePreorderNodesSearched(binaryTree, focusNode, key);
 		double endTime = System.currentTimeMillis();
 		
 		return (endTime - startTime);
 	}
 	
 	/*
-	 * Description.  Not working just yet.
+	 * Calculates the amount of time (in milliseconds) needed to conduct an in order search on a given key.
 	 * 
 	 * @param binaryTree BinaryTree object.
 	 * @param focusNode Start or begining node of the binary tree.
-	 * @param name String value corresponding with desired search value.
+	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @returns double Double type corresponding to time taken to search the binaryTree.
 	 */
-	public double calculateInOrderSearchDuration(BinaryTree binaryTree, Node focusNode, String name){
-		//Calculattions here.
+	private double calculateInOrderSearchDuration(BinaryTree binaryTree, Node focusNode, int key){
+		
+		double startTime = System.currentTimeMillis();
+		int temporary = calculateInOrderNodesSearched(binaryTree, focusNode, key);
+		double endTime = System.currentTimeMillis();
+		
+		return (endTime - startTime);
 	}
 	
 	/*
