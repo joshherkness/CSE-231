@@ -368,7 +368,7 @@ public class BinaryTreeMW {
 		bigO += "\nThe time spent searching during each recursion are as follows:\n";
 		
 		//the key is -1 so the search method goes through the entire tree
-		bigO += calculateInOrderTimeElapsed(this.binaryTreeDatabase, focusNode, -1, true);
+		bigO += calculateInOrderTimeElapsed(focusNode, -1, true);
 		
 		return bigO; 
 	}
@@ -383,7 +383,7 @@ public class BinaryTreeMW {
  	 * 
  	 * @returns time String value that returns data regarding time spent during each recursion of the method.
  	 */
-	private String calculateInOrderTimeElapsed(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key, boolean continueSearching){
+	private String calculateInOrderTimeElapsed(Node focusNode, int key, boolean continueSearching){
 		
 		String time = "";
 		
@@ -399,19 +399,17 @@ public class BinaryTreeMW {
 		
 		if (focusNode.leftChild != null){
 			time += " ";
-			time += Double.toString(calculateInOrderNodesSearched(binaryTreeDatabase, focusNode.leftChild, key, continueSearching));
+			time += calculateInOrderTimeElapsed(focusNode.leftChild, key, continueSearching);
 		}
 		
 		// If the focus node has the desired key, stop searching
 		if (focusNode.getKey == key){
-			
 			continueSearching = false;
-			
 		}
 		
 		if (focusNode.rightChild != null){
 			time += " ";
-			time += Double.toString(calculateInOrderNodesSearched(binaryTreeDatabase, focusNode.rightChild, key, continueSearching));
+			time += calculateInOrderTimeElapsed(focusNode.rightChild, key, continueSearching);
 		}
 			
 		double endTime = System.currentTimeMillis();
