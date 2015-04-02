@@ -1,4 +1,4 @@
-package edu.oakland.production.ClassProject.Middleware;
+package edu.oakland.production.ClassProject.Database;
 
 /*
  * Node class, used for Middleware part 1B.
@@ -10,16 +10,16 @@ package edu.oakland.production.ClassProject.Middleware;
 public class Node {
 
 	/// Kay value.
-	private int key;
+	public int key;
 	
 	/// Name value.
-	private String name;
+	public String name;
 
 	/// Left node. Less than the parent node.
-	private Node leftChild;
+	public Node leftNode;
 	
 	/// Right node.  Greater than the parent node
-	private Node rightChild;
+	public Node rightNode;
 
 	/*
 	 * Constructor for the Node object.  Accepts a integer key, and String name pair.
