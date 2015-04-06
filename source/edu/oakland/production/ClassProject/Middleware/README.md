@@ -6,7 +6,17 @@
 ## How to use
 
 1. Create an instance of BinaryTreeMW using the default constructor, then call populateBinaryTreeDB method, giving it the desired size.
+
+```java
+BinaryTreeMW binaryTreeMiddleware = new BinaryTreeMW();
+binaryTreeMiddleware.populateBinaryTreeDB(400000);
+```
+
 2. Create an instance of BinaryTreeMW using the overloaded constructor, giving it a parameter of the desired size.
+
+```java
+BinaryTreeMW binaryTreeMiddleware = new BinaryTreeMW(400000);
+```
 
 ## Methods
 
