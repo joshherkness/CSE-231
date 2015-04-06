@@ -11,7 +11,8 @@ package edu.oakland.production.ClassProject.Middleware;
 import java.util.*;
 
 //Import BinaryTreeDB.java & Node.java
-import edu.oakland.production.ClassProject.Database.*;
+import edu.oakland.production.ClassProject.Database.BinaryTreeDB;
+import edu.oakland.production.ClassProject.Database.Node;
 
 
 /*
@@ -47,6 +48,18 @@ public class BinaryTreeMW {
 	public BinaryTreeMW(){
 		
 		this.binaryTreeDatabase = new BinaryTreeDB<String>();
+	}
+	
+	/*
+	 * Overloaded constructor for the BinaryTreeMW Class.
+	 * Accepts a BinaryTreeDB parameter.
+	 * 
+	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @return BinaryTreeMW
+	 */
+	public BinaryTreeMW(BinayTreeDB binaryTreeDatabase){
+		
+		this.binaryTreeDatabase = binaryTreeDatabase;
 	}
 	
 	/*
@@ -524,7 +537,17 @@ public class BinaryTreeMW {
 	}
 	
 	/*
-	 * Retrieves the BinaryTreeDatabaseObject.
+	 * Assigns the BinaryTreeDB object.
+	 * 
+	 * @param binaryTreeDatabaseBinaryTreeDB object.
+	 */
+	public BinaryTreeDB setBinaryTreeDatabase(BinaryTreeDB binaryTreeDatabase){
+		
+		this.binaryTreeDatabase = binaryTreeDatabase;
+	}
+	
+	/*
+	 * Retrieves the BinaryTreeDB object.
 	 * 
 	 * @return BinaryTreeDB
 	 */
