@@ -17,12 +17,19 @@ Or
 BinaryTreeMW binaryTreeMiddleware = new BinaryTreeMW(400000);
 ```
 
+Or
+
+```java
+BinaryTreeMW binaryTreeMiddleware = new BinaryTreeMW(binaryTreeDatabase);
+```
+
 ## Methods
 
 ### Public
 
 - `public BinaryTreeMW()`
 - `public BinaryTreeMW(int size)`
+- `public BinaryTreeMW(BinaryTreeDB binaryTreeDatabase)`
 - `public void populateBinaryTreeDB(int size)`
 - `public String calculatePreorderNodesSearched(int key1, int key2, int key3)`
 - `public String calculateInOrderNodesSearched(int key1, int key2, int key3)`
