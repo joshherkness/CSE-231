@@ -15,8 +15,10 @@ import edu.oakland.production.ClassProject.Database.*;
 
 
 /*
- * BinaryTreeMW.  This class is used to complete part 1B in the CSE231 class project.  
- * It allows a programmer to generate and mainipulate a binary tree, collecting data along the way.
+ * BinaryTreeMW.  
+ * This class is used to complete part 1B in the CSE231 class project.  
+ * It allows a programmer to generate and mainipulate a binary tree, 
+ * collecting data along the way.
  * 
  * @author Joshua Herkness, Middleware
  * @author Trevor Luebbert, Middleware
@@ -129,8 +131,8 @@ public class BinaryTreeMW {
 	}
 	
 	/*
-	 * Searches for three integer key values, providing a record of the 
-	 * amount of nodes searched durring an in order search.
+	 * Searches for three integer key values, 
+	 * providing a record of the amount of nodes searched durring an in order search.
 	 * 
 	 * @param key1 Integer value corresponding to a key value.
 	 * @param key2 Integer value corresponding to a key value.
@@ -208,6 +210,9 @@ public class BinaryTreeMW {
 		}
 		
 		if (focusNode.leftChild != null){
+			
+			// Call the recursive method again, 
+			// sending it the reference to continueSearching.
 			nodesSearched += calculatePreorderNodesSearched(binaryTreeDatabase, 
 															focusNode.leftChild, 
 															key, 
@@ -215,12 +220,16 @@ public class BinaryTreeMW {
 		}
 		
 		if (focusNode.rightChild != null){
+			
+			// Call the recursive method again, 
+			// sending it the reference to continueSearching.
 			nodesSearched += calculatePreorderNodesSearched(binaryTreeDatabase, 
 															focusNode.rightChild, 
 															key, 
 															continueSearching);
 		}
-			
+		
+		// Return the amount of nodes searched for each recursion.
 		return nodesSearched;
 			
 	}
@@ -236,13 +245,18 @@ public class BinaryTreeMW {
 	 */
 	private int calculateInOrderNodesSearched(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
 		
-		int nodesSearched = calculateInOrderNodesSearched(binaryTreeDatabase, focusNode, key, true);
+		// Call a recursive method, notifying it to continue searching initially (true)
+		int nodesSearched = calculateInOrderNodesSearched(binaryTreeDatabase, 
+														  focusNode, 
+														  key, 
+														  true);
 		
 		return nodesSearched;
 	}
 	
 	/*
-	 * Helper recursive method used to calculates the amount of nodes searched for locating a given key using an in order search.
+	 * Helper recursive method used to calculates the amount 
+	 * of nodes searched for locating a given key using an in order search.
 	 * 
 	 * @param binaryTreeDatabase BinaryTreeDB object.
 	 * @param focusNode Start or begining node of the binary tree.
@@ -267,13 +281,17 @@ public class BinaryTreeMW {
 		}
 		
 		if (focusNode.leftChild != null){
+			
+			// Call the recursive method again, 
+			// sending it the reference to continueSearching.
 			nodesSearched += calculateInOrderNodesSearched(binaryTreeDatabase, 
 														   focusNode.leftChild, 
 														   key, 
 														   continueSearching);
 		}
 		
-		// If the focus node has the desired key, increament the amount of nodesSearched, and 
+		// If the focus node has the desired key, increament the amount of nodesSearched,
+		// and notify all other recursions to break.
 		if (focusNode.getKey() == key){
 			
 			continueSearching = false;
@@ -282,12 +300,16 @@ public class BinaryTreeMW {
 		}
 		
 		if (focusNode.rightChild != null){
+			
+			// Call the recursive method again, 
+			// sending it the reference to continueSearching.
 			nodesSearched += calculateInOrderNodesSearched(binaryTreeDatabase, 
 														   focusNode.rightChild, 
 														   key, 
 														   continueSearching);
 		}
-			
+		
+		// Return the amount of nodes searched for each recursion.
 		return nodesSearched;
 	}
 	
@@ -366,9 +388,7 @@ public class BinaryTreeMW {
 	 * 
 	 * @return double Double type corresponding to time taken to search the binaryTreeDatabase.
 	 */
-	private double calculatePreorderSearchDuration(BinaryTreeDB binaryTreeDatabase, 
-												   Node focusNode, 
-												   int key){
+	private double calculatePreorderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
 		
 		double startTime = System.currentTimeMillis();
 		int temporary = calculatePreorderNodesSearched(binaryTreeDatabase, focusNode, key);
