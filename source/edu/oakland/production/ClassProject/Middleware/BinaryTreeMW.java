@@ -2,10 +2,11 @@
  * BinaryTreeMW.java
  * CSE 231 Class Project
  * 
- * Copyright (c) 2015 Joshua Herkness. All rights reserved.
+ * Copyright (c) 2015 Joshua Herkness.
  */
 
 package edu.oakland.production.ClassProject.Middleware;
+
 
 //Import java util framework
 import java.util.*;
@@ -342,17 +343,17 @@ public class BinaryTreeMW {
 		
 		Node focusNode = this.binaryTreeDatabase.getRootNode();
 		
-		duration += Double.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
 																	focusNode, 
 																	key1));
 		duration += " ";
 		
-		duration += Double.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
 																	focusNode, 
 																	key2));
 		duration += " ";
 		
-		duration += Double.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculatePreorderSearchDuration(this.binaryTreeDatabase, 
 																	focusNode, 
 																	key3));
 		
@@ -375,17 +376,17 @@ public class BinaryTreeMW {
 		
 		Node focusNode = this.binaryTreeDatabase.getRootNode();
 		
-		duration += Double.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
 																   key1));
 		duration += " ";
 		
-		duration += Double.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
 																   key2));
 		duration += " ";
 		
-		duration += Double.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
+		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
 																   key3));
 		
@@ -399,13 +400,13 @@ public class BinaryTreeMW {
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
-	 * @return double Double type corresponding to time taken to search the binaryTreeDatabase.
+	 * @return long Long type corresponding to time taken to search the binaryTreeDatabase.
 	 */
-	private double calculatePreorderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	private long calculatePreorderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
 		
-		double startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		int temporary = calculatePreorderNodesSearched(binaryTreeDatabase, focusNode, key);
-		double endTime = System.currentTimeMillis();
+		long endTime = System.currentTimeMillis();
 		
 		return (endTime - startTime);
 	}
@@ -417,13 +418,13 @@ public class BinaryTreeMW {
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
-	 * @return double Double type corresponding to time taken to search the binaryTreeDatabase.
+	 * @return long Long type corresponding to time taken to search the binaryTreeDatabase.
 	 */
-	private double calculateInOrderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	private long calculateInOrderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
 		
-		double startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		int temporary = calculateInOrderNodesSearched(binaryTreeDatabase, focusNode, key);
-		double endTime = System.currentTimeMillis();
+		long endTime = System.currentTimeMillis();
 		
 		return (endTime - startTime);
 	}
@@ -455,6 +456,7 @@ public class BinaryTreeMW {
 	}
 
 	/*
+ 	 * Helper method for calculating the Big O relationship.
  	 * Calculates durration of each recursion of the method.
  	 * 
  	 * @param binaryTreeDatabase BinaryTreeDB object.
@@ -469,7 +471,7 @@ public class BinaryTreeMW {
 		String time = "";
 		
 		//Capture the start time.
-		double startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		
 		// Ignore the recursion loop if the node is already found, or if the node is non existant.
 		if (!continueSearching){
@@ -493,10 +495,10 @@ public class BinaryTreeMW {
 			time += calculateInOrderTimeElapsed(focusNode.rightChild, key, continueSearching);
 		}
 			
-		double endTime = System.currentTimeMillis();
+		long endTime = System.currentTimeMillis();
 		
 		time += " ";
-		time += (Double.toString(endTime-startTime));
+		time += (Long.toString(endTime-startTime));
 		return time;
 	}
 	
