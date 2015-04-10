@@ -24,7 +24,7 @@ import edu.oakland.production.ClassProject.Database.Node;
  * 
  * @author Joshua Herkness, Middleware
  * @author Trevor Luebbert, Middleware
- * @version Version 2.3
+ * @version Version 2.4
  * @since version 1.0
  */
 public class BinaryTreeMW {
