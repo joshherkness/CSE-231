@@ -42,9 +42,11 @@ public class BinaryTreeMWTest extends TestCase {
 	private Node nodeC;
 	private Node nodeD;
 	private Node nodeE;
-		
-	private BinaryTreeDB binaryTreeDatabase;
 	
+	/// Instanciate a BinaryTreeDB<T> of value type String.
+	private BinaryTreeDB<String> binaryTreeDatabase;
+	
+	/// Instanciate a BinaryTreeMW object.
 	private BinaryTreeMW binaryTreeMiddleware;
 	
 	/*
@@ -59,8 +61,8 @@ public class BinaryTreeMWTest extends TestCase {
 		nodeD = new Node(4, "D");
 		nodeE = new Node(5, "E");
 		
-		// Create binaryTreeDatabase
-		binaryTreeDatabase = new BinaryTreeDB();
+		// Create binaryTreeDatabase, with value type String
+		binaryTreeDatabase = new BinaryTreeDB<String>();
 		
 		// Add nodes to binaryTreeDatabase
 		binaryTreeDatabase.addNode(nodeA);
