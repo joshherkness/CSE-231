@@ -543,7 +543,7 @@ public class BinaryTreeMW {
 	 * 
 	 * @param binaryTreeDatabaseBinaryTreeDB object.
 	 */
-	public BinaryTreeDB setBinaryTreeDatabase(BinaryTreeDB binaryTreeDatabase){
+	public void setBinaryTreeDatabase(BinaryTreeDB binaryTreeDatabase){
 		
 		this.binaryTreeDatabase = binaryTreeDatabase;
 	}
