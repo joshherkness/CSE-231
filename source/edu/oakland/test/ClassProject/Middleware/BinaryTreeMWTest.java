@@ -23,24 +23,41 @@ import junit.framework.*
 /*
  * BinaryTreeMWTest.java
  * 
- * @author Joshua Herkness
- * @version Version 1.0
+ * @author Joshua Herkness, Middleware
+ * @author Trevor Luebbert, Middleware
+ * @version Version 1.2
  * @since Version 1.0
  */
 public class BinaryTreeMWTest extends TestCase {
 	
+	/// Instance variable for a small BinaryTreeDB size.
 	private int size = 5;
 	
+	/// Integer value of a key to be searchd for.
 	private int key1 = 1;
+	
+	/// Integer value of a key to be searchd for.
 	private int key2 = 3;
+	
+	/// Integer value of a key to be searchd for.
 	private int key3 = 5;
 	
-	private String nodesSearched = "1 3 5"
+	/// The correct output for the amount of nodes searched for each key.
+	private String nodesSearched = "1 3 5";
 	
+	/// Instance of node.
 	private Node nodeA;
+	
+	/// Instance of node.
 	private Node nodeB;
+	
+	/// Instance of node.
 	private Node nodeC;
+	
+	/// Instance of node.
 	private Node nodeD;
+	
+	/// Instance of node.
 	private Node nodeE;
 	
 	/// Instanciate a BinaryTreeDB<T> of value type String.
@@ -50,7 +67,8 @@ public class BinaryTreeMWTest extends TestCase {
 	private BinaryTreeMW binaryTreeMiddleware;
 	
 	/*
-	 * Description.
+	 * Set up method for the test class. 
+	 * Runs before each test.
 	 */
 	public void setUp(){
 		
@@ -76,35 +94,80 @@ public class BinaryTreeMWTest extends TestCase {
 	}
 	
 	/*
-	 * Description.
-	 */
-	public void testInOrderBinarySearch {
-		
-	}
-	
-	/*
-	 * Description
-	 */
-	public void testPreorderBinarySearch {
-		
-	}
-	
-	/*
-	 * Description.
+	 * Tests that the BinaryTreeMW class can calulate the correct amount of nodes searched in preorder for three keys.
 	 */
 	public void testPreorderNodesSearched(){
+		
+		// String value of the calculated amount of nodes searched.
 		String nodesSearched = binarTreeMiddleware.calculatePreorderNodesSearched(this.key1, this.key2, this.key3);
 		
+		// Compare the correct and calculated value of the amount of nodes searched for three keys.
 		assertEqauls(this.nodesSearched, nodesSearched);
 	}
 	
 	/*
-	 * Description.
+	 * Tests that the BinaryTreeMW class can calulate the correct amount of nodes searched in order for three keys.
 	 */
-	public void testInOreorderNodesSearched(){
+	public void testInOrderNodesSearched(){
+		
+		// String value of the calculated amount of nodes searched.
 		String nodesSearched = binarTreeMiddleware.calculateInOrderNodesSearched(this.key1, this.key2, this.key3);
 		
+		// Compare the correct and calculated value of the amount of nodes searched for three keys.
 		assertEqauls(this.nodesSearched, nodesSearched);
 	}
 	
+	/*
+	 * Tests that the BinaryTreeMW class can calculate the durration taken to search for three keys in order.
+	 */
+	public void testInOrderSearchDuration() {
+		
+		// Calcualte the search durration for three keys, and store them in a string
+		String searchDuration = binaryTreeMiddleware.calculateInOrderSearchDuration(this.key1, this.key2, this.key3);
+		
+		// If the string contains something, the calculation is a success.
+		boolean pass = false;
+		if (searchDuration != "") {
+			pass = true;
+		}
+		
+		// If the calculation was a success, the test is a success.
+		assertTrue(pass);	
+	}
+	
+	/*
+	 * Tests that the BinaryTreeMW class can calculate the durration taken to search for three keys in preorder.
+	 */
+	public void testPreorderSearchDuration() {
+		
+		// Calcualte the search durration for three keys, and store them in a string
+		String searchDuration = binaryTreeMiddleware.calculatePreOrderSearchDuration(this.key1, this.key2, this.key3);
+		
+		// If the string contains something, the calculation is a success.
+		boolean pass = false;
+		if (searchDuration != "") {
+			pass = true;
+		} 
+		
+		// If the calculation was a success, the test is a success.
+		assertTrue(pass);
+	}
+	
+	/*
+	 * Tests that the BinaryTreeMW class can gather data of the Big O relationship in a binaryTree.
+	 */
+	public void testCalculateBigORelationship() {
+		
+		// Calculate the Big O relationship of the binaryTree.
+		String BigO = binaryTreeMiddleware.calculateBigORelationship();
+		
+		// If the string contains something, the calculation is a success.
+		boolean pass = false;
+		if (BigO != "") {
+			pass = true;
+		}
+		
+		// If the calculation was a success, the test is a success.
+		assertTrue(pass);
+	}	
 }

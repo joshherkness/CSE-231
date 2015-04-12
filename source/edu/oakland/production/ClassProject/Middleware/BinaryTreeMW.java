@@ -437,6 +437,7 @@ public class BinaryTreeMW {
 	 */
 	public String calculateBigORelationship(){
 		
+		// Root (Base) node
 		Node focusNode = this.binaryTreeDatabase.getRootNode();
 		
 		String bigO = "";
@@ -449,7 +450,7 @@ public class BinaryTreeMW {
 		// Introduction to the data set
 		bigO += "\nThe time spent searching during each recursion are as follows:\n";
 		
-		//the key is -1 so the search method goes through the entire tree
+		//the key is -1 so the search method goes through each recursion of the entire tree
 		bigO += calculateInOrderTimeElapsed(focusNode, -1, true);
 		
 		return bigO; 
