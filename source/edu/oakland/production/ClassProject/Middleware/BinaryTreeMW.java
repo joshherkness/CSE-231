@@ -24,7 +24,7 @@ import edu.oakland.production.ClassProject.Database.Node;
  * 
  * @author Joshua Herkness, Middleware
  * @author Trevor Luebbert, Middleware
- * @version Version 2.4
+ * @version Version 2.6
  * @since version 1.0
  */
 public class BinaryTreeMW {
@@ -53,12 +53,13 @@ public class BinaryTreeMW {
 	
 	/*
 	 * Overloaded constructor for the BinaryTreeMW Class.
-	 * Accepts a BinaryTreeDB parameter.
+	 * Accepts a BinaryTreeDB<String> parameter.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @return BinaryTreeMW
 	 */
-	public BinaryTreeMW(BinayTreeDB binaryTreeDatabase){
+	@supressWarnings("unchecked")
+	public BinaryTreeMW(BinayTreeDB<String> binaryTreeDatabase){
 		
 		this.binaryTreeDatabase = binaryTreeDatabase;
 	}
@@ -67,7 +68,7 @@ public class BinaryTreeMW {
 	 * Overloaded constructor for the BinaryTreeMW Class.  
 	 * Popluates the binaryTreeDatabase given a size.
 	 * 
-	 * @param size Integer value corresponding to the desired size of the BinaryTreeDB object.
+	 * @param size Integer value corresponding to the desired size of the BinaryTreeDB<String> object.
 	 * 
 	 * @return BinaryTreeMW
 	 */
@@ -174,13 +175,13 @@ public class BinaryTreeMW {
 	/*
 	 * Calculates the amount of nodes searched for locating a given key using a preorder search.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @return int Integer type corresponding to the number of nodes searched through.
 	 */
-	private int calculatePreorderNodesSearched(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	private int calculatePreorderNodesSearched(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key){
 		
 		int nodesSearched = calculatePreorderNodesSearched(binaryTreeDatabase, focusNode, key, true);
 		
@@ -192,14 +193,14 @@ public class BinaryTreeMW {
 	 * Helper recursive method used to calculates the amount of nodes searched 
 	 * for locating a given key using a preorder search.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
-	 * @param continueSearch Boolean value corresponding to whether the node has been located.
+	 * @param continueSearching Boolean value corresponding to whether the node has been located.
 	 * 
 	 * @return int Integer type corresponding to the number of nodes searched through.
 	 */
-	private int calculatePreorderNodesSearched(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key, boolean continueSearching){
+	private int calculatePreorderNodesSearched(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key, boolean continueSearching){
 		
 		// Begin each recursion with zero nodes searched.
 		int nodesSearched = 0;
@@ -214,7 +215,7 @@ public class BinaryTreeMW {
 			nodesSearched++;
 		}
 		
-		// If the focus node has the desired key, increament the amount of nodesSearched, 
+		// If the focus node has the desired key, increment the amount of nodesSearched, 
 		// and skip all other recursions.
 		if (focusNode.getKey() == key){
 			
@@ -251,13 +252,13 @@ public class BinaryTreeMW {
 	/*
 	 * Calculates the amount of nodes searched for locating a given key using an in order search.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @return int Integer type corresponding to the number of nodes searched through.
 	 */
-	private int calculateInOrderNodesSearched(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	private int calculateInOrderNodesSearched(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key){
 		
 		// Call a recursive method, notifying it to continue searching initially (true)
 		int nodesSearched = calculateInOrderNodesSearched(binaryTreeDatabase, 
@@ -272,14 +273,14 @@ public class BinaryTreeMW {
 	 * Helper recursive method used to calculates the amount 
 	 * of nodes searched for locating a given key using an in order search.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
-	 * @param continueSearch Boolean value corresponding to whether the node has been located.
+	 * @param continueSearching Boolean value corresponding to whether the node has been located.
 	 * 
 	 * @return int Integer type corresponding to the number of nodes searched through.
 	 */
-	private int calculateInOrderNodesSearched(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key, boolean continueSearching){
+	private int calculateInOrderNodesSearched(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key, boolean continueSearching){
 		
 		// Begin each recursion with zero nodes searched.
 		int nodesSearched = 0;
@@ -361,7 +362,7 @@ public class BinaryTreeMW {
 	}
 	
 	/*
-	 * Calculates the amount of time (in milliseconds) needed to conduct 
+	 * Calculates the amount of time (in nanoseconds) needed to conduct 
 	 * an in order search on each of the three integer keys provided.
 	 * 
 	 * @param key1 Integer value corresponding to a key value.
@@ -379,12 +380,14 @@ public class BinaryTreeMW {
 		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
 																   key1));
-		duration += " ";
+		// Nanoseconds
+		duration += " ns";
 		
 		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
 																   key2));
-		duration += " ";
+		// Nanoseconds
+		duration += " ns";
 		
 		duration += Long.toString(calculateInOrderSearchDuration(this.binaryTreeDatabase, 
 																   focusNode, 
@@ -394,37 +397,38 @@ public class BinaryTreeMW {
 	}
 	
 	/*
-	 * Calculates the amount of time (in milliseconds) needed to conduct a preorder search on the integer key provided.
+	 * Calculates the amount of time (in nanoseconds) needed to conduct a preorder search on the integer key provided.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @return long Long type corresponding to time taken to search the binaryTreeDatabase.
 	 */
-	private long calculatePreorderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	@SuppressWarnings("unchecked")
+	private long calculatePreorderSearchDuration(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key){
 		
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		int temporary = calculatePreorderNodesSearched(binaryTreeDatabase, focusNode, key);
-		long endTime = System.currentTimeMillis();
+		long endTime = System.nanoTime();
 		
 		return (endTime - startTime);
 	}
 	
 	/*
-	 * Calculates the amount of time (in milliseconds) needed to conduct an in order search on the key provided.
+	 * Calculates the amount of time (in nanoseconds) needed to conduct an in order search on the key provided.
 	 * 
-	 * @param binaryTreeDatabase BinaryTreeDB object.
+	 * @param binaryTreeDatabase BinaryTreeDB<String> object.
 	 * @param focusNode Start or begining node of the binary tree.
 	 * @param key Integer value corresponding with desired search value.
 	 * 
 	 * @return long Long type corresponding to time taken to search the binaryTreeDatabase.
 	 */
-	private long calculateInOrderSearchDuration(BinaryTreeDB binaryTreeDatabase, Node focusNode, int key){
+	private long calculateInOrderSearchDuration(BinaryTreeDB<String> binaryTreeDatabase, Node focusNode, int key){
 		
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		int temporary = calculateInOrderNodesSearched(binaryTreeDatabase, focusNode, key);
-		long endTime = System.currentTimeMillis();
+		long endTime = System.nanoTime();
 		
 		return (endTime - startTime);
 	}
@@ -437,7 +441,7 @@ public class BinaryTreeMW {
 	public String calculateBigORelationship(){
 
 		// Initialize string variable.
-		String bigO = "";
+		String bigO = new String();
 		
 		// Create an instance of Random.
 		Random randomGenerator = new Random();
@@ -449,21 +453,19 @@ public class BinaryTreeMW {
 		for (int i  = 0, i < sizes.length - 1, i++){
 			
 			// Create an BianryTreeDB object.
-			BinaryTreeDB binaryTree = new BinaryTreeDB(sizes[i]);
+			BinaryTreeDB<String> binaryTree = new BinaryTreeDB<String>(sizes[i]);
 			
 			// Generate a random key to search for, within the bounds of the binaryTree.
 			int key = randomGenerator.nextInt(sizes[i]);
-			
-			Node focusNode = binaryTree.getRootNode();
 
 			// Gather the current system time.
-			long startTime = System.currentTimeMillis();
+			long startTime = System.nanoTime();
 			
 			// Calculate the number of nodes searched to locate a given key.
-			int nodesSearched = calculatePreorderNodesSearched(binaryTree, focusNode, key);
+			int nodesSearched = calculateNodeCountForBigO(key)
 			
-			// Calculate the durration.
-			long endTime = System.currentTimeMillis();
+			// Calculate the duration.
+			long endTime = System.nanoTime();
 			long duration = endTime - startTime;
 
 			// Append Big O with data on the new binaryTree size.
@@ -472,13 +474,56 @@ public class BinaryTreeMW {
 								  "the number of nodes searched through was %d,"
 								  "and the time taken to complete the search was %d", 
 								  sizes[i], key, nodesSearched, duration);
+		}
+
+		// Append Big O with explination of the Big O relationship.
+		bigO += "\nThe big O notation for a binary tree of size n is O (log2 of n)\n";
+
+		return bigO;
 	}
 
-	// Append Big O with explination of the Big O relationship.
-	bigO += "\nThe big O notation for a binary tree of size n is O (log2 of n)\n";
-
-	return bigO;
-}
+	/*
+	 * Calculate the number of number of nodes searched in the binary tree.
+	 * "Halves" the binary tree until a node with the given key is found.
+	 * Used in calculating the Big O relationship.
+	 * 
+	 * @param key Integer value corresponding to a key in the binary tree.
+	 * 
+	 * @returns nodeCount Integer value corresponding to the number of nodes searched to locate a given key.
+	 */
+	private int calculateNodeCountForBigO(int key) {
+		
+		// Focus node is the root.
+		Node focusNode = binaryTreeDatabase.getRootNode();
+		
+		int nodeCount = 0;
+		
+		// Half the binary tree untill the key is found.
+		while(focusNode.getKey() != key) {
+			
+			if (key == focusNode.getKey) {
+				// Do not count this as a node searched.
+				return nodeCount;
+			}
+			
+			if (key < focusNode.getKey()) {
+				focusNode = focusNode.leftChild;
+			} else {
+				focusNode = focusNode.rightChild;
+			}
+			
+			// Checks for errors.
+			if (focusNode == null){
+				// The key you are searching for does not exist in the binary tree.
+				return -1;
+			}
+			
+			// Count the node as a node searched.
+			nodeCount++
+		}
+		
+		return nodeCount;	
+	}
 
 	
 	/*
@@ -520,9 +565,9 @@ public class BinaryTreeMW {
 	/*
 	 * Assigns the BinaryTreeDB object.
 	 * 
-	 * @param binaryTreeDatabaseBinaryTreeDB object.
+	 * @param binaryTreeDatabaseBinaryTreeDB<String> object.
 	 */
-	public void setBinaryTreeDatabase(BinaryTreeDB binaryTreeDatabase){
+	public void setBinaryTreeDatabase(BinaryTreeDB<String> binaryTreeDatabase){
 		
 		this.binaryTreeDatabase = binaryTreeDatabase;
 	}
@@ -530,9 +575,9 @@ public class BinaryTreeMW {
 	/*
 	 * Retrieves the BinaryTreeDB object.
 	 * 
-	 * @return BinaryTreeDB
+	 * @return BinaryTreeDB<String>
 	 */
-	public BinaryTreeDB getBinaryTreeDatabase(){
+	public BinaryTreeDB<String> getBinaryTreeDatabase(){
 		
 		return this.binaryTreeDatabase;
 	}
