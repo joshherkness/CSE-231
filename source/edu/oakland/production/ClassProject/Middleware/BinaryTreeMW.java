@@ -430,78 +430,56 @@ public class BinaryTreeMW {
 	}
 	
 	/*
- 	 * Gathers data for the BigO notaion, returning a string of the duration 
- 	 * spent searching after each recursion, as well as the description of the notation.
+	 * Gives a Big O representaiton string for three different sizes of binary trees.
 	 * 
- 	 * @return bigO String value corresponding to the big O notation and data set as proof.
+	 * @return bigO String data of the Big O relationship of the binary tree.
 	 */
 	public String calculateBigORelationship(){
-		
-		// Root (Base) node
-		Node focusNode = this.binaryTreeDatabase.getRootNode();
-		
+
+		// Initialize string variable.
 		String bigO = "";
 		
-		// Description of the BigO notation.
-		bigO += "After each recursion, the time spent searching is halved" +
-			"since you can only move down either the left or right child nodes." +
-			"This halving of the data can be represented as O (log N)";
-		
-		// Introduction to the data set
-		bigO += "\nThe time spent searching during each recursion are as follows:\n";
-		
-		//the key is -1 so the search method goes through each recursion of the entire tree
-		bigO += calculateInOrderTimeElapsed(focusNode, -1, true);
-		
-		return bigO; 
+		// Create an instance of Random.
+		Random randomGenerator = new Random();
+
+		// Declair and initialize an array of sizes.
+		int[] sizes = {100000, 200000, 400000};
+
+		// For each of the different sizes, gather data on Big O.
+		for (int i  = 0, i < sizes.length - 1, i++){
+			
+			// Create an BianryTreeDB object.
+			BinaryTreeDB binaryTree = new BinaryTreeDB(sizes[i]);
+			
+			// Generate a random key to search for, within the bounds of the binaryTree.
+			int key = randomGenerator.nextInt(sizes[i]);
+			
+			Node focusNode = binaryTree.getRootNode();
+
+			// Gather the current system time.
+			long startTime = System.currentTimeMillis();
+			
+			// Calculate the number of nodes searched to locate a given key.
+			int nodesSearched = calculatePreorderNodesSearched(binaryTree, focusNode, key);
+			
+			// Calculate the durration.
+			long endTime = System.currentTimeMillis();
+			long duration = endTime - startTime;
+
+			// Append Big O with data on the new binaryTree size.
+			bigO += String.format("\nFor a binary tree with %d elements,"
+								  "and A randomly generated key value of %d,"
+								  "the number of nodes searched through was %d,"
+								  "and the time taken to complete the search was %d", 
+								  sizes[i], key, nodesSearched, duration);
 	}
 
-	/*
- 	 * Helper method for calculating the Big O relationship.
- 	 * Calculates durration of each recursion of the method.
- 	 * 
- 	 * @param binaryTreeDatabase BinaryTreeDB object.
- 	 * @param focusNode Node object.
- 	 * @param key Integer value corresponding to the key of a given node object.
- 	 * @param continueSearching Boolean value that tells the method whether or not it needs to continue searching.
- 	 * 
- 	 * @return time String value that returns data regarding time spent during each recursion of the method.
- 	 */
-	private String calculateInOrderTimeElapsed(Node focusNode, int key, boolean continueSearching){
-		
-		String time = "";
-		
-		//Capture the start time.
-		long startTime = System.currentTimeMillis();
-		
-		// Ignore the recursion loop if the node is already found, or if the node is non existant.
-		if (!continueSearching){
-			return "";
-		} else if (focusNode == null){
-			return "";
-		}
-		
-		if (focusNode.leftChild != null){
-			time += " ";
-			time += calculateInOrderTimeElapsed(focusNode.leftChild, key, continueSearching);
-		}
-		
-		// If the focus node has the desired key, stop searching
-		if (focusNode.getKey == key){
-			continueSearching = false;
-		}
-		
-		if (focusNode.rightChild != null){
-			time += " ";
-			time += calculateInOrderTimeElapsed(focusNode.rightChild, key, continueSearching);
-		}
-			
-		long endTime = System.currentTimeMillis();
-		
-		time += " ";
-		time += (Long.toString(endTime-startTime));
-		return time;
-	}
+	// Append Big O with explination of the Big O relationship.
+	bigO += "\nThe big O notation for a binary tree of size n is O (log2 of n)\n";
+
+	return bigO;
+}
+
 	
 	/*
 	 * Generates a non-duplicate random number list, given a minimumValue, maximumValue, and size.
